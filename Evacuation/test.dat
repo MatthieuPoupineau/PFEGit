@@ -1,0 +1,24 @@
+	// Numero du noeud dépôt
+d_depot = 0;
+	// Liste des noeuds
+d_nodes = {1, 2, 3, 4, 5};
+	// Arc : <"Noeud initial", "Noeud final", "Capacité", "Durée", "Risque">
+d_edges = {<0,1,10,2,0>, <0,2,7,2,3>, <1,2,5,3,5>, <2,1,5,3,5>, <3,4,7,3,3>, <4,3,7,3,3>, <1,3,4,4,0>, <3,1,6,4,0>, <2,4,4,4,6>, <4,2,4,4,6>, <3,5,3,5,10>, <5,3,3,5,10>, <4,5,9,5,9>, <5,4,9,5,9>};
+	// Temps maximum
+d_time_horizon = 50;
+	// Nombre de bus
+d_number_of_buses = 4;
+	// Capacité d'un bus
+d_bus_capacity = 25;
+	// Nombre de Centre de secours ouvert
+d_number_of_permitted_shelters = 1;
+	// Ratio voiture/bus (1 voiture = 0.2 bus)
+d_bus_to_car_ratio = 0.2;
+	// Risque maximum
+d_maximal_risk = 100;
+	// PR des bus <"Numero du PR", "Nombre de bus en attente", "Instant t">
+d_bus_demand_list = {<1,9,0>, <1,15,1>, <1,1,2>};
+	// PR des voitures <"Numero du PR", "Nombre de voiture en attente", "Instant t">
+d_car_demand_list = {<1,10,0>, <1,5,1>, <1,3,2>};
+	// Centres de secours <"Numero du CS", "Nombre de place dans le CS", "Places de parking">
+d_shelter_capacity_list = {<5,114,40>};
