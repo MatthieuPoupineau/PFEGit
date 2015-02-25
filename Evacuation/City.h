@@ -51,6 +51,12 @@ public:
     vector<int> getVec_IdNode() const;
     void setVec_IdNode(const vector<int> &value);
 
+    int getNbShelter() const;
+    void setNbShelter(int value);
+
+    int getNbCollectionPoint() const;
+    void setNbCollectionPoint(int value);
+
 protected:
 private:
     int depotId;
@@ -59,6 +65,8 @@ private:
     vector<Edge> vec_Edge;
     int timeHorizon;
     int nbBus;
+	int nbShelter;
+	int nbCollectionPoint;
     int busCapacity;
     int nBPermittedShelter;
     double busCarRatio;

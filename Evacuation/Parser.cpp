@@ -16,7 +16,7 @@ City * Parser::parse(string fileName)
     City *city = new City;
     cout << fileName << endl;
     cout<<"Reading instance file "<<fileName<<"\n";
-	ifstream in("test.dat");
+	ifstream in(fileName);
 	if (in == NULL)
 	{
 		cout<<"Cannot open file.\n";
@@ -65,6 +65,33 @@ City * Parser::parse(string fileName)
     city->setVec_CollecCar(getCollectCar(d_car_demand_list));
     city->setVec_Shelter(getShelter(d_shelter_capacity_list));
 
+	int nbShelter = 0;
+	for(Shelter shelter : city->getVec_Shelter())
+	{
+		nbShelter++;
+	}
+	city->setNbShelter(nbShelter);
+	
+	int nbCP = 0;
+	vector<int> vecIdCPBus;
+	for(CollectionPointBus CPBus : city->getVec_CollecBus())
+	{
+		bool alreadyCount = false;
+		for(int idCPBus : vecIdCPBus)
+		{
+			if(idCPBus == CPBus.getNodeId())
+			{
+				alreadyCount = true;
+			}
+		}
+		if(!alreadyCount)
+		{
+			nbCP++;
+			vecIdCPBus.push_back(CPBus.getNodeId());
+		}			
+	}
+	city->setNbCollectionPoint(nbCP);
+	cout << city->getNbCollectionPoint() << city->getNbShelter();
     //displayCity(*city);
     return city;
 }
@@ -200,11 +227,11 @@ vector<Shelter> Parser::getShelter(string d_shelter_capacity_list)
     	d_shelter_capacity_list = d_shelter_capacity_list.substr(d_shelter_capacity_list.find("<")+1);
 		shelterTemp.setNodeId(atoi(d_shelter_capacity_list.c_str()));
 
-    	d_shelter_capacity_list = d_shelter_capacity_list.substr(d_shelter_capacity_list.find("'")+1);
-		shelterTemp.setCarPlace(atoi(d_shelter_capacity_list.c_str()));
-
-    	d_shelter_capacity_list = d_shelter_capacity_list.substr(d_shelter_capacity_list.find("'")+1);
+    	d_shelter_capacity_list = d_shelter_capacity_list.substr(d_shelter_capacity_list.find(",")+1);
 		shelterTemp.setTotalPlace(atoi(d_shelter_capacity_list.c_str()));
+
+		d_shelter_capacity_list = d_shelter_capacity_list.substr(d_shelter_capacity_list.find(",")+1);
+		shelterTemp.setCarPlace(atoi(d_shelter_capacity_list.c_str()));
 
 		vec_Shelter.push_back(shelterTemp);
     }

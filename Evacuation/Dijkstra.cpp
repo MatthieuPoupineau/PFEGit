@@ -11,11 +11,11 @@ Dijkstra::Dijkstra(void)
 Dijkstra::~Dijkstra(void)
 {
 }
-
-int Dijkstra::calculate(int initialNode, int finalNode, vector<Edge> vecEdges, int nbNode)
+int* Dijkstra::calculateAll(int initialNode, vector<Edge> vecEdges, int nbNode)
 {
+	nbNode++;
 	int **graph = vecEdgesToGraph(vecEdges, nbNode);
-
+	
 	int * dist = new int[nbNode];     // The output array.  dist[i] will hold the shortest
                       // distance from src to i
  
@@ -49,14 +49,19 @@ int Dijkstra::calculate(int initialNode, int finalNode, vector<Edge> vecEdges, i
                                        && dist[u]+graph[u][v] < dist[v])
             dist[v] = dist[u] + graph[u][v];
      }
-	 return dist[finalNode];
+	 return dist;
+}
+
+int Dijkstra::calculate(int initialNode, int finalNode, vector<Edge> vecEdges, int nbNode)
+{
+	 return calculateAll(initialNode, vecEdges, nbNode)[finalNode];
 }
 
 int ** Dijkstra::vecEdgesToGraph(vector<Edge> vecEdges, int nbNode)
 {
 	int **graph;
 	graph = new int* [nbNode];
-	for (int i=0; i < nbNode; i++)
+	for (int i=0; i <= nbNode; i++)
 		graph[i] = new int[nbNode];
 
 
@@ -78,6 +83,15 @@ int ** Dijkstra::vecEdgesToGraph(vector<Edge> vecEdges, int nbNode)
 			}
 		}
 	}
+	// Display matrix 
+	/*for(int i = 0; i < nbNode; i++)
+	{
+		for(int j = 0; j < nbNode; j++)
+		{
+			cout << graph[i][j] << " | " ;
+		}
+		cout << endl;
+	}*/
 
 	return graph;
 }

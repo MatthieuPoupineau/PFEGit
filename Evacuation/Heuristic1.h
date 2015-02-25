@@ -6,8 +6,8 @@
 #include "Pheromone.h"
 #include "ResidualCap.h"
 #include "Dijkstra.h"
+#include "Bus.h"
 
-using namespace std;
 
 class Heuristic1
 {
@@ -16,6 +16,7 @@ public:
 	~Heuristic1(void);
 
 	void findSolutions();
+	vector<int> CPBusSortByProximity(int initialNode);
 
 private:
 	City city;
@@ -26,18 +27,24 @@ private:
 	vector<Pheromone> vecPheromoneCs; // pheromon matrix to Cs
 	vector<Pheromone> vecPheromonePr; // pheromon matrix to Pr
 	map<Path, int*> mapRCap; // residual capacity
-	map<Path, int> mapTime;
-	map<Path, int> mapRisk;
+	map<Path, int> mapTime; // Time for the key "path"
+	map<Path, int> mapRisk; // Risk for the key "path"
+	map<int, Bus> mapInfoBus; // bus information for the key "bus id"
 
 	void initPheromoneMatrix();
 	void initMapRCap();
 	void initMapTimeAndMapRisk();
-	void updateResidualCap(Path path, int instant, int time);
+	void updateResidualCap(vector<int> vecPathToShelter, map<Path, int> mapDelay);
+	void updateShelterCap(int idShelter, string transportType, int quantity);
+	int updateTimeCurrentAnt(vector<int> vecPathToShelter, map<Path, int> mapDelay);
 	void updatePheromoneMatrix(vector<int> vecPathToShelter, int timeAnt, int riskAnt);
 	void displayPheromoneMatrix(vector<Pheromone> &vecPheromone);
-	vector<int> findLoop(vector<int> vecPathToShelter, int* timeCurrentAnt, int *riskCurrentAnt);
+	int riskCurrentAnt(vector<int> vecPathToShelter);
+	int totalWaitingPerson();
+	//vector<int> CPBusSortByProximity(int initialNode);
+	vector<int> findLoop(vector<int> vecPathToShelter);
 	vector<int> allowedNode(int previousNode, int initialNode, string transportType, int instant);
 	int selectNextNode(int currentNode, vector<int> vecAllowedNode);
-	void writeAntPath(int idAnt, vector<int> vecPathToShelter, int timeCurrentAnt, int riskCurrentAnt);
+	void writeAntPath(int idAnt, vector<int> vecPathToShelter, int start, int timeCurrentAnt, int riskCurrentAnt);
 };
 

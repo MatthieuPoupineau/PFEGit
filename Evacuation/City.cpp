@@ -139,4 +139,24 @@ void City::setVec_IdNode(const vector<int> &value)
 {
     vec_IdNode = value;
 }
+int City::getNbShelter() const
+{
+    return nbShelter;
+}
+
+void City::setNbShelter(int value)
+{
+    nbShelter = value;
+}
+int City::getNbCollectionPoint() const
+{
+    return nbCollectionPoint;
+}
+
+void City::setNbCollectionPoint(int value)
+{
+    nbCollectionPoint = value;
+}
+
+
 
